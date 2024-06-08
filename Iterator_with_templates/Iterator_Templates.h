@@ -27,37 +27,22 @@ class Iterator {
 private:
     Node<T>* slider;
 
-    bool Digits_Even(int num) {
-        if (num % 2 != 0) {
-            return false;
-        }
-        while (num != 0) {
-            int digit = abs(num % 10);
-            if (digit % 2 != 0) {
-                return false;
-            }
-            num /= 10;
-        }
-        return true;
-    }
-
     void move_to_next() {
         while (slider != nullptr) {
             if (auto id = get_if<int>(&slider->data.student_ID)) {
-                if (Digits_Even(*id)) {
-                    break;
-                }
+                break;
+                
             }
             slider = slider->next;
         }
     }
 
 public:
-    Iterator(Node<T>* start) : slider(start) {//конструктор для того чтобы итератор начинал свою работу с чётного числа 
+    Iterator(Node<T>* start) : slider(start) {
         move_to_next();
     }
 
-    Iterator& operator++() {// перегрузка++ к следующему чётному числу
+    Iterator& operator++() {// перегрузка++ 
         if (slider != nullptr) {
             slider = slider->next;
             move_to_next();
